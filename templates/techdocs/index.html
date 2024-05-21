@@ -1,10 +1,19 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <h1>My Documentation</h1>
+{% for category in categories %}
+	<p class="card">{{ category.name }}</p>
+{% empty %}
+	<p>There are no categories, <a href="{% url 'create_category' %}">create one here.</a></p>
+{% endfor %}
+
 </body>
 </html>
