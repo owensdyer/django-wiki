@@ -5,13 +5,19 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
 
-    # category urls
-    path('category/create/', views.create_category, name='create_category'),
-    path('category/update/<int:pk>/', views.update_category, name='edit_category'),
-    path('category/delete/<int:pk>/', views.delete_category, name='delete_category'),
+    # viewing urls
+    path('<slug:category>/', views.view_category, name='view_category'),
+    # path('<slug:category>/<slug:document>/', views.view_document, name='view_document'),
 
-    # technical documentation
-    path('document/create/', views.create_category, name='create_category'),
-    path('document/update/<slug:pk>/', views.update_category, name='edit_category'),
-    path('document/delete/<slug:pk>/', views.delete_category, name='delete_category'),
+    # creating urls
+    # path('create/category/', views.create_category, name='create_category'),
+    # path('create/document/', views.create_document, name='create_document'),
+    #
+    # # updating urls
+    # path('update/<slug:category>', views.update_document, name='update_document'),
+    # path('update/<slug:doucment>/', views.update_document, name='update_document'),
+    #
+    # # deleting urls
+    # path('delete/<slug:category>', views.delete_document, name='delete_document'),
+    # path('delete/<slug:document>', views.delete_document, name='delete_document'),
 ]
