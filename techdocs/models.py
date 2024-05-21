@@ -5,7 +5,7 @@ from django.db import models
 class Supercategory(models.Model):
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         verbose_name = 'Supercategory'
@@ -18,8 +18,8 @@ class Supercategory(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='child_category', on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True)
+    parent = models.ForeignKey('Supercategory', null=True, blank=True, related_name='child_category', on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         verbose_name = 'Category'
@@ -35,11 +35,10 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    name = models.CharField(max_length=20, verbose_name='Subcategories'),
+    name = models.CharField(max_length=20, default="EMPTY")
     description = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     parent = models.ForeignKey('Category', null=True, blank=True, related_name='child_subcategory', on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         verbose_name = 'Subcategory'
@@ -53,8 +52,8 @@ class Subcategory(models.Model):
 class TechnicalDoc(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    category = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True)
+    category = models.ForeignKey('Subcategory', on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         verbose_name = 'Technical Document'
