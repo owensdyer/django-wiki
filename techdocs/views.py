@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
+from . import models
+
 
 # Create your views here.
 def index(request):
-    return render(request, 'techdocs/index.html', {})
+    obj = models.Category.objects.all()
+    return render(request, 'techdocs/index.html', {'categories': obj})
 
 
 def create_category(request):
