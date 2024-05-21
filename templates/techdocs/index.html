@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+
 <h1>My Documentation</h1>
-{% for category in categories %}
-	<p class="card">{{ category.name }}</p>
+
+{% for category in supercategories %}
+    <ul>
+        <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+    </ul>
+{#	<p class="card">{{ category.name }}</p>#}
+{#    <a href="{% url 'view_category' category.slug %}">Click here!</a>#}
+
 {% empty %}
 	<p>There are no categories, <a href="{% url 'create_category' %}">create one here.</a></p>
+
 {% endfor %}
 
 </body>
